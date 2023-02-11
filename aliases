@@ -1,0 +1,33 @@
+# Open aliases file in code
+alias opal='code $BASH_CONFIG_PATH/aliases'
+
+# Frequent dirs
+alias pj='cd /c/Personal/Projects; ls'
+alias pg='cd /c/Personal/Playground; ls'
+alias tools='cd /c/Tools; ls'
+
+# Utils
+alias cls='clear'
+alias view='explorer .'
+alias note='start obsidian'
+alias reload='source ~/.zshrc'
+alias ssc='cat package.json | jq ".scripts"'
+
+# Git
+alias gs='git status'
+alias gp='git push'
+alias gl=$'git log --graph --pretty=format:\'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\' --abbrev-commit'
+alias gpf='git push -f'
+alias gcan='git commit --amend --no-edit'
+alias gc='f() { git commit -m "$1" };f'
+alias gcn='f() { git commit -n -m "$1" };f'
+alias gcb='f() { git checkout -b $1 };f'
+alias gcr='f() { git checkout release/$1 };f'
+alias gch='f() { git checkout $1 };f'
+alias gpr='f() { git pull --rebase origin release/$1 };f'
+
+# Yarn
+alias yi='yarn install'
+alias yif='yarn install --force'
+alias yb='yarn build'
+alias ys='yarn start'

@@ -1,0 +1,50 @@
+r-delregion() {
+  if ((REGION_ACTIVE)) then
+     zle kill-region
+  else 
+    zle $1
+  fi
+}
+
+r-deselect() {
+  ((REGION_ACTIVE = 0))
+  zle $1
+}
+
+r-select() {
+  ((REGION_ACTIVE)) || zle set-mark-command
+  zle $1
+}
+
+for key     seq        mode      widget (
+    sleft   '^[[1;2D' select    backward-char
+    sright  '^[[1;2C' select    forward-char
+    sup     '^[[1;2A' select    up-line-or-history
+    sdown   '^[[1;2B' select    down-line-or-history
+
+    send    '^[[1;2F' select    end-of-line
+    shome   '^[[1;2H' select    beginning-of-line
+
+    left    '^[[D'    deselect  backward-char
+    # right   '^[[C'    deselect  forward-char
+
+    end     '^[[F'    deselect  end-of-line
+    home    '^[[H'    deselect  beginning-of-line
+
+    csleft  '^[[1;6D' select    backward-word
+    csright '^[[1;6C' select    forward-word
+    csend   '^[[1;6F' select    end-of-line
+    cshome  '^[[1;6H' select    beginning-of-line
+
+    cleft   '^[[1;5D' deselect  backward-word
+    cright  '^[[1;5C' deselect  forward-word
+
+    del     '^[[3~'   delregion delete-char
+    bs      '^?'      delregion backward-delete-char
+  ) {
+  eval "key-$key() {
+    r-$mode $widget
+  }"
+  zle -N key-$key
+  bindkey $seq key-$key
+}
